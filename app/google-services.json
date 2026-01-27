@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "891682443770",
+    "project_id": "movily-f95cf",
+    "storage_bucket": "movily-f95cf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891682443770:android:2566f9eebbee13c52c1443",
+        "android_client_info": {
+          "package_name": "com.vaibhav.movily"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "891682443770-bes9s8qhpttk201rtd97fj58rt6eikkb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vaibhav.movily",
+            "certificate_hash": "33ff31ccd5bc1cd17ca95aa1c2e4ca501775af29"
+          }
+        },
+        {
+          "client_id": "891682443770-mp9jt3vr8f9gdoo199lepgtan2t7ou0v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vaibhav.movily",
+            "certificate_hash": "be6e65d0f7516f5a734948d81a73f8cf48242755"
+          }
+        },
+        {
+          "client_id": "891682443770-rp0et1tnp1b781t5mt3pn3cl9i4q1rb3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcq7uwVvqn674dZro8HhzTW-iDMDA_BCA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "891682443770-rp0et1tnp1b781t5mt3pn3cl9i4q1rb3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
