@@ -3,34 +3,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="#F5F5F5">
 
-    <VideoView
-        android:id="@+id/videoView"
+    <!-- 🔥 VIDEO PLAYER SECTION (ALWAYS VISIBLE) -->
+    <TextureView
+        android:id="@+id/videoTextureView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="300dp" />
 
-    <!-- Play Controls -->
+    <!-- 🔥 PLAY CONTROLS -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        android:background="@drawable/video_controls_bg"
+        android:padding="12dp">
 
         <ImageButton
             android:id="@+id/btnBack"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@android:drawable/ic_menu_revert"
-            android:layout_marginEnd="16dp" />
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="Back" />
 
         <ImageButton
             android:id="@+id/btnPlayPause"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:scaleType="centerInside" />
+            android:src="@android:drawable/ic_media_play"
+            android:background="@drawable/circle_button_bg"
+            android:scaleType="centerInside"
+            android:contentDescription="Play/Pause" />
 
         <TextView
             android:id="@+id/tvTime"
@@ -39,93 +47,163 @@
             android:layout_weight="1"
             android:layout_marginStart="16dp"
             android:text="00:00 / 00:00"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textColor="#333"
+            android:gravity="end" />
 
     </LinearLayout>
 
-    <!-- Main Playback SeekBar -->
+    <!-- 🔥 MAIN SEEKBAR -->
     <SeekBar
         android:id="@+id/seekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="12dp"
+        android:progressTint="#FF6B6B"
+        android:thumbTint="#FF6B6B" />
 
-    <!-- 🔥 TRIM START -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Start:"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:layout_marginEnd="8dp" />
-
-        <SeekBar
-            android:id="@+id/seekBarTrimStart"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginEnd="8dp" />
-
-        <TextView
-            android:id="@+id/tvTrimStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="00:00"
-            android:textSize="14sp"
-            android:minWidth="48dp" />
-
-    </LinearLayout>
-
-    <!-- 🔥 TRIM END -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp"
-        android:gravity="center_vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="End:"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:layout_marginEnd="8dp" />
-
-        <SeekBar
-            android:id="@+id/seekBarTrimEnd"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginEnd="8dp" />
-
-        <TextView
-            android:id="@+id/tvTrimEnd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="00:00"
-            android:textSize="14sp"
-            android:minWidth="48dp" />
-
-    </LinearLayout>
-
-    <!-- 🔥 TRIM BUTTON -->
+    <!-- 🔥 TOGGLE TRIM BUTTON (REPLACES ORIGINAL TRIM BUTTON) -->
     <Button
-        android:id="@+id/btnTrim"
+        android:id="@+id/btnToggleTrim"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:text="✂️ Trim and Replace Video"
-        android:textSize="16sp" />
+        android:layout_height="52dp"
+        android:layout_marginTop="20dp"
+        android:text="✂️ Trim Video"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:background="@drawable/trim_toggle_button_bg"
+        android:textColor="#FFF" />
 
-    <!-- ProgressBar -->
+    <!-- 🔥 COLLAPSIBLE TRIM CONTROLS (HIDDEN BY DEFAULT) -->
+    <LinearLayout
+        android:id="@+id/trimControlsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/trim_panel_bg"
+        android:padding="20dp">
+
+        <!-- 🔥 TRIM TITLE -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📐 Set Trim Range"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#333"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <!-- 🔥 TRIM START -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start:"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#555"
+                android:layout_marginEnd="12dp" />
+
+            <SeekBar
+                android:id="@+id/seekBarTrimStart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="12dp"
+                android:progressTint="#4CAF50"
+                android:thumbTint="#4CAF50" />
+
+            <TextView
+                android:id="@+id/tvTrimStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#4CAF50"
+                android:minWidth="56dp" />
+
+        </LinearLayout>
+
+        <!-- 🔥 TRIM END -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="End:"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#555"
+                android:layout_marginEnd="12dp" />
+
+            <SeekBar
+                android:id="@+id/seekBarTrimEnd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="12dp"
+                android:progressTint="#2196F3"
+                android:thumbTint="#2196F3" />
+
+            <TextView
+                android:id="@+id/tvTrimEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#2196F3"
+                android:minWidth="56dp" />
+
+        </LinearLayout>
+
+        <!-- 🔥 TRIM ACTION BUTTONS -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <Button
+                android:id="@+id/btnCancelTrim"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:text="❌ Cancel"
+                android:textSize="15sp"
+                android:background="@drawable/cancel_button_bg" />
+
+            <Button
+                android:id="@+id/btnTrim"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:text="✂️ Apply Trim"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:background="@drawable/apply_trim_button_bg" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- 🔥 PROGRESS BAR -->
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"

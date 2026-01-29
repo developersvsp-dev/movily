@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 🔥 PRESSED STATE (darker red) -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#E53E3E"/>
+            <corners android:radius="12dp"/>
+            <stroke android:width="0dp"/>
+        </shape>
+    </item>
+
+    <!-- 🔥 DEFAULT STATE (bright red with white border) -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FF6B6B"/>
+            <corners android:radius="12dp"/>
+            <stroke android:width="1dp" android:color="#FFFFFF"/>
+        </shape>
+    </item>
+</selector>
