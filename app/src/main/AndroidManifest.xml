@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.vaibhav.movily">  <!-- 🔥 ADD PACKAGE HERE -->
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Movily"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        tools:replace="android:allowBackup,android:icon,android:theme,android:label,android:dataExtractionRules,android:fullBackupContent">  <!-- 🔥 ADD THIS LINE -->
 
         <!-- 🔥 LOGINACTIVITY = LAUNCHER (FIRST SCREEN) -->
         <activity
@@ -27,12 +30,18 @@
         </activity>
 
         <!-- MainActivity (Protected - No launcher) -->
-        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />  <!-- 🔥 ADD exported -->
+
         <activity
             android:name=".CreateProjectActivity"
             android:exported="false"
             android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
-        <activity android:name=".VideoEditorActivity" android:exported="false"
+
+        <activity
+            android:name=".VideoEditorActivity"
+            android:exported="false"
             android:theme="@style/Theme.Material3.DayNight.NoActionBar"/>
 
     </application>
